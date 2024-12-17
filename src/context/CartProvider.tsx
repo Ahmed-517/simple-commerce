@@ -23,10 +23,6 @@ interface CartContext {
   countTotalPrice(): number;
 }
 
-const updateCartInLocalStorage = (products: cartItem[]) => {
-  localStorage.setItem("cartItems", JSON.stringify(products));
-};
-
 const CartContext = createContext<CartContext>({
   items: [],
   updateCart() {},
@@ -42,6 +38,10 @@ const CartContext = createContext<CartContext>({
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItems, setCartItems] = useState<cartItem[]>([]);
+
+  const updateCartInLocalStorage = (products: cartItem[]) => {
+    localStorage.setItem("cartItems", JSON.stringify(products));
+  };
 
   const updateCart = (product: Product, quantity: number) => {
     const updatedCartItems = [...cartItems];
